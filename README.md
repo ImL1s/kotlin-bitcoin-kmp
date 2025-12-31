@@ -1,5 +1,8 @@
 # bitcoin-kmp
 
+> [!IMPORTANT]
+> **Fork Information**: This project is forked from [ACINQ/bitcoin-kmp](https://github.com/ACINQ/bitcoin-kmp). It has been modified to support **WatchOS** and **Pure Kotlin Cryptography** for specific platforms.
+
 <p align="center">
   <img src="./docs/images/hero.png" alt="Bitcoin KMP Hero" width="100%">
 </p>
