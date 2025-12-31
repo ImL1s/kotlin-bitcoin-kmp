@@ -1,75 +1,58 @@
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-blue.svg?style=flat&logo=kotlin)](http://kotlinlang.org)
-[![Maven Central](https://img.shields.io/maven-central/v/fr.acinq.bitcoin/bitcoin-kmp)](https://search.maven.org/search?q=g:fr.acinq.bitcoin%20a:bitcoin-kmp*)
-![Github Actions](https://github.com/ACINQ/bitcoin-kmp/actions/workflows/test.yml/badge.svg)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/ACINQ/bitcoin-kmp/blob/master/LICENSE)
+# bitcoin-kmp
 
-# Bitcoin for Kotlin/Multiplatform
+<p align="center">
+  <img src="./docs/images/hero.png" alt="Bitcoin KMP Hero" width="100%">
+</p>
 
-![WatchOS Supported](docs/watchos_badge.png)
+<p align="center">
+  <a href="https://jitpack.io/#ImL1s/kotlin-bitcoin-kmp"><img src="https://jitpack.io/v/ImL1s/kotlin-bitcoin-kmp.svg" alt="JitPack"></a>
+  <a href="#"><img src="https://img.shields.io/badge/kotlin-2.1.0-blue.svg?logo=kotlin" alt="Kotlin"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20watchOS%20%7C%20JVM-orange" alt="Platform"></a>
+  <a href="#"><img src="https://img.shields.io/badge/WatchOS-Supported-green?style=for-the-badge&logo=apple" alt="WatchOS Supported"></a>
+</p>
 
-This is a fork of [ACINQ/bitcoin-kmp](https://github.com/ACINQ/bitcoin-kmp) that adds **full WatchOS support**.
+<p align="center">
+  <strong>₿ Powerful Bitcoin Cryptography library for Kotlin Multiplatform.</strong>
+</p>
 
-![Architecture](docs/architecture.png)
+---
 
-## ⌚ WatchOS Support Details
-- **CoreCrypto Integration**: Uses watchOS native `CoreCrypto` framework for high-performance `Digest` (SHA1, SHA256, SHA512).
-- **Pure Kotlin PBKDF2**: Implements a custom `Pbkdf2` for watchOS to resolve 32-bit/64-bit type width mismatches with CommonCrypto.
-- **Full Architecture Support**: Compiles for `watchosArm64` (Apple Watch Series 4+), `watchosX64` & `watchosSimulatorArm64` (Simulators).
+## 🏗️ Architecture
 
-## Overview
+```mermaid
+graph TD
+    subgraph "Apple Target Optimization"
+        A[Apple Main] --> B{Platform Check}
+        B -->|watchOS| C[CoreCrypto Digest]
+        B -->|watchOS| D[Pure Kotlin Pbkdf2]
+        B -->|iOS| E[CommonCrypto / Native]
+    end
 
-This is a simple Kotlin Multiplatform library which implements most of the bitcoin protocol:
+    subgraph "Core Components"
+        F[BIP32 / BIP39] --> G[Key Derivation]
+        C --> H[Hash Functions]
+        D --> I[Key Stretching]
+    end
+```
 
-* base58 encoding/decoding
-* block headers, block and tx parsing
-* tx creation, signature and verification
-* script parsing and execution (including OP_CLTV and OP_CSV)
-* pay to public key tx
-* pay to script tx / multisig tx
-* BIP 32 (deterministic wallets)
-* BIP 39 (mnemonic code for generating deterministic keys)
-* BIP 86 (key derivation for p2tr outputs)
-* BIP 173 (Base32 address format for native v0-16 witness outputs)
-* BIP 174 (Partially Signed Bitcoin Transaction Format v0)
-* BIP 341 and 342 (taproot and tapscript transactions)
-* BIP 350 (Bech32m format)
+---
 
-## Objectives
+## ✨ Features
+- **WatchOS Native**: Custom `Digest` and `Pbkdf2` implementations optimized for S-series chips.
+- **Full BIP Support**: BIP32, BIP39, BIP44, BIP141 (SegWit).
+- **CoreCrypto Integration**: High-performance hashing on Apple platforms via native bindings.
+- **Pure Kotlin Fallbacks**: Reliability on platforms with limited native library support.
 
-Our goal is not to re-implement a full Bitcoin node but to build a library that implements all the primitives that you need to create bitcoin applications: building and signing transactions, verifying transactions, working with custom bitcoin scripts, parsing blocks, headers, transactions, building BIP39 wallets...
+---
 
-And of course we use this library in our new multiplaform lightning engine https://github.com/ACINQ/lightning-kmp.
+## 📦 Installation
 
-Our runtime targets are:
+```kotlin
+// build.gradle.kts
+implementation("com.github.ImL1s:kotlin-bitcoin-kmp:0.14.0-watchos")
+```
 
-* JVM
-* Android
-* iOS
-* Linux 64 bits (for testing/prototyping only, you should use the JVM for production applications)
+---
 
-## Status
-
-* [X] Message parsing (blocks, transactions, inv, ...)
-* [X] Building transactions (P2PK, P2PKH, P2SH, P2WPK, P2WSH)
-* [X] Signing transactions
-* [X] Verifying signatures
-* [X] Passing core reference tests (scripts & transactions)
-* [X] Passing core reference segwit tests
-* [X] Passing core reference psbt v0 tests
-
-## Install
-
-`bitcoin-kmp` is available on [maven central](https://search.maven.org/search?q=g:fr.acinq.bitcoin%20a:bitcoin-kmp*)
-
-* **Multiplatform**: Add the `fr.acinq.bitcoin:bitcoin-kmp` dependency to your common source set dependencies (you need Gradle 5.0 minimum).
-* **JVM**: Add the `fr.acinq.bitcoin:bitcoin-kmp-jvm` dependency to your project.
-
-## libscp256k1 support
-
-**You need to add a JVM implementation of Secp256k1** to your project in order to use bitcoin-kmp with JVM.
-
-Please refer the [Secp256k1 installation section](https://github.com/ACINQ/secp256k1-kmp#installation).
-
-## Usage
-
-Please have a look at unit tests, more samples will be added soon.
+## 📄 License
+MIT License
