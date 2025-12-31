@@ -15,9 +15,6 @@ val currentOs = org.gradle.internal.os.OperatingSystem.current()
 group = "fr.acinq.bitcoin"
 version = "0.30.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-}
 
 kotlin {
     explicitApi()
@@ -55,12 +52,22 @@ kotlin {
         compilations["main"].cinterops.create("CoreCrypto")
     }
 
+    watchosArm64 {
+        compilations["main"].cinterops.create("CoreCrypto")
+    }
+    watchosSimulatorArm64 {
+        compilations["main"].cinterops.create("CoreCrypto")
+    }
+    watchosX64 {
+        compilations["main"].cinterops.create("CoreCrypto")
+    }
+
     sourceSets {
         val secp256k1KmpVersion = "0.22.0"
 
         val commonMain by getting {
             dependencies {
-                api("fr.acinq.secp256k1:secp256k1-kmp:$secp256k1KmpVersion")
+                api(project(":modules:secp256k1-kmp"))
             }
         }
         val commonTest by getting {
@@ -83,6 +90,32 @@ kotlin {
                 }
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm-$target:$secp256k1KmpVersion")
             }
+        }
+
+        val iosMain by creating {
+            dependsOn(commonMain)
+        }
+        val iosArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        val iosX64Main by getting {
+            dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        
+        val watchosMain by creating {
+            dependsOn(commonMain)
+        }
+        val watchosArm64Main by getting {
+            dependsOn(watchosMain)
+        }
+        val watchosSimulatorArm64Main by getting {
+            dependsOn(watchosMain)
+        }
+        val watchosX64Main by getting {
+            dependsOn(watchosMain)
         }
 
         all {
