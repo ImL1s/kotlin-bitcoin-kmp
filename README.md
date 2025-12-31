@@ -3,7 +3,18 @@
 ![Github Actions](https://github.com/ACINQ/bitcoin-kmp/actions/workflows/test.yml/badge.svg)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/ACINQ/bitcoin-kmp/blob/master/LICENSE)
 
-# Kotlin Multiplatform Bitcoin Library
+# Bitcoin for Kotlin/Multiplatform
+
+![WatchOS Supported](docs/watchos_badge.png)
+
+This is a fork of [ACINQ/bitcoin-kmp](https://github.com/ACINQ/bitcoin-kmp) that adds **full WatchOS support**.
+
+![Architecture](docs/architecture.png)
+
+## ⌚ WatchOS Support Details
+- **CoreCrypto Integration**: Uses watchOS native `CoreCrypto` framework for high-performance `Digest` (SHA1, SHA256, SHA512).
+- **Pure Kotlin PBKDF2**: Implements a custom `Pbkdf2` for watchOS to resolve 32-bit/64-bit type width mismatches with CommonCrypto.
+- **Full Architecture Support**: Compiles for `watchosArm64` (Apple Watch Series 4+), `watchosX64` & `watchosSimulatorArm64` (Simulators).
 
 ## Overview
 
