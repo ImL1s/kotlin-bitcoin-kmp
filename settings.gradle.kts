@@ -14,6 +14,10 @@ pluginManagement {
     }
 }
 
-if (File("../kotlin-secp256k1-kmp").exists()) {
-    includeBuild("../kotlin-secp256k1-kmp")
+val secpPath = listOf("../kotlin-secp256k1-kmp", "./kotlin-secp256k1-kmp")
+    .map { file(it) }
+    .firstOrNull { it.exists() }
+
+if (secpPath != null) {
+    includeBuild(secpPath)
 }
