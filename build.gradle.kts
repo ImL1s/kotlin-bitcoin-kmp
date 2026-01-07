@@ -79,7 +79,7 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                api(project(":modules:secp256k1-kmp"))
+                api("fr.acinq.secp256k1:secp256k1-kmp:0.23.0-SNAPSHOT")
             }
         }
         val commonTest by getting {

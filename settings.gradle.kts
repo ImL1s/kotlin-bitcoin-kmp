@@ -1,3 +1,4 @@
+
 rootProject.name = "bitcoin-kmp"
 
 pluginManagement {
@@ -12,3 +13,5 @@ pluginManagement {
         }
     }
 }
+
+includeBuild("../kotlin-secp256k1-kmp")
