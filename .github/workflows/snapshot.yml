@@ -62,7 +62,7 @@ jobs:
           java-version: 21
           distribution: 'adopt'
       - name: Check
-        run: ./gradlew check --stacktrace --debug
+        run: ./gradlew check --stacktrace --debug --include-build ../kotlin-secp256k1-kmp --include-build ../kotlin-crypto-pure
       - name: Publish Linux to Maven Local
         if: matrix.os == 'ubuntu-latest'
         shell: bash
