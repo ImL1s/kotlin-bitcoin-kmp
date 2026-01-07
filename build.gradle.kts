@@ -5,8 +5,8 @@ import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeHostTest
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest
 
 plugins {
-    id("org.jetbrains.kotlin.multiplatform") version "2.1.0"
-    id("org.jetbrains.dokka") version "1.9.20"
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.dokka)
     `maven-publish`
 }
 
@@ -105,8 +105,24 @@ kotlin {
             }
         }
 
-        val iosMain by creating {
+        val nativeMain by creating {
             dependsOn(commonMain)
+        }
+
+        val linuxMain by creating {
+            dependsOn(nativeMain)
+        }
+        val linuxX64Main by getting { dependsOn(linuxMain) }
+        val linuxArm64Main by getting { dependsOn(linuxMain) }
+
+        val macosMain by creating {
+            dependsOn(nativeMain)
+        }
+        val macosX64Main by getting { dependsOn(macosMain) }
+        val macosArm64Main by getting { dependsOn(macosMain) }
+
+        val iosMain by creating {
+            dependsOn(nativeMain)
         }
         val iosArm64Main by getting {
             dependsOn(iosMain)
@@ -119,7 +135,7 @@ kotlin {
         }
         
         val watchosMain by creating {
-            dependsOn(commonMain)
+            dependsOn(nativeMain)
         }
         val watchosArm64Main by getting {
             dependsOn(watchosMain)
