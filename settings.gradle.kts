@@ -14,4 +14,6 @@ pluginManagement {
     }
 }
 
-includeBuild("../kotlin-secp256k1-kmp")
+if (File("../kotlin-secp256k1-kmp").exists()) {
+    includeBuild("../kotlin-secp256k1-kmp")
+}
