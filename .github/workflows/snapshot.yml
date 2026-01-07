@@ -26,6 +26,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: 'recursive'
+      - name: Check out secp256k1-kmp
+        uses: actions/checkout@v4
+        with:
+          repository: ImL1s/kotlin-secp256k1-kmp
+          path: ../kotlin-secp256k1-kmp
       - name: Cached Konan
         uses: actions/cache@v4
         with:
