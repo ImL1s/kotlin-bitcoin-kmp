@@ -5,8 +5,8 @@ import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeHostTest
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest
 
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.dokka)
+    id("org.jetbrains.kotlin.multiplatform") version "2.1.0"
+    id("org.jetbrains.dokka") version "1.9.20"
     `maven-publish`
 }
 
@@ -79,7 +79,7 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                api("fr.acinq.secp256k1:secp256k1-kmp:0.23.0-SNAPSHOT")
+                api("fr.acinq.secp256k1:secp256k1-kmp:$secp256k1KmpVersion")
             }
         }
         val commonTest by getting {
@@ -191,46 +191,46 @@ plugins.withId("org.jetbrains.kotlin.multiplatform") {
     }
 }
 
-val dokkaOutputDir = layout.buildDirectory.dir("dokka")
-
-tasks.dokkaHtml {
-    outputDirectory.set(file(dokkaOutputDir))
-    dokkaSourceSets {
-        configureEach {
-            val platformName = when (platform.get()) {
-                Platform.jvm -> "jvm"
-                Platform.js -> "js"
-                Platform.native -> "native"
-                Platform.common -> "common"
-                Platform.wasm -> "wasm"
-                else -> error("unexpected platform ${platform.get()}")
-            }
-            displayName.set(platformName)
-
-            perPackageOption {
-                matchingRegex.set(".*\\.internal.*") // will match all .internal packages and sub-packages
-                suppress.set(true)
-            }
-        }
-    }
-}
-
-val deleteDokkaOutputDir by tasks.register<Delete>("deleteDokkaOutputDirectory") {
-    delete(dokkaOutputDir)
-}
-
-
-val javadocJar = tasks.create<Jar>("javadocJar") {
-    archiveClassifier.set("javadoc")
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    dependsOn(deleteDokkaOutputDir, tasks.dokkaHtml)
-    from(dokkaOutputDir)
-}
+// val dokkaOutputDir = layout.buildDirectory.dir("dokka")
+//
+// tasks.dokkaHtml {
+//     outputDirectory.set(file(dokkaOutputDir))
+//     dokkaSourceSets {
+//         configureEach {
+//             val platformName = when (platform.get()) {
+//                 Platform.jvm -> "jvm"
+//                 Platform.js -> "js"
+//                 Platform.native -> "native"
+//                 Platform.common -> "common"
+//                 Platform.wasm -> "wasm"
+//                 else -> error("unexpected platform ${platform.get()}")
+//             }
+//             displayName.set(platformName)
+//
+//             perPackageOption {
+//                 matchingRegex.set(".*\\.internal.*") // will match all .internal packages and sub-packages
+//                 suppress.set(true)
+//             }
+//         }
+//     }
+// }
+//
+// val deleteDokkaOutputDir by tasks.register<Delete>("deleteDokkaOutputDirectory") {
+//     delete(dokkaOutputDir)
+// }
+//
+//
+// val javadocJar = tasks.create<Jar>("javadocJar") {
+//     archiveClassifier.set("javadoc")
+//     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+//     // dependsOn(deleteDokkaOutputDir, tasks.dokkaHtml)
+//     // from(dokkaOutputDir)
+// }
 
 publishing {
     publications.withType<MavenPublication>().configureEach {
         version = project.version.toString()
-        artifact(javadocJar)
+        // artifact(javadocJar)
         pom {
             name.set("Kotlin Multiplatform Bitcoin Library")
             description.set("A simple Kotlin Multiplatform library which implements most of the bitcoin protocol")
