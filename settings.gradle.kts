@@ -21,3 +21,11 @@ val secpPath = listOf("../kotlin-secp256k1-kmp", "./kotlin-secp256k1-kmp")
 if (secpPath != null) {
     includeBuild(secpPath)
 }
+
+val cryptoPath = listOf("../kotlin-crypto-pure", "./kotlin-crypto-pure")
+    .map { file(it) }
+    .firstOrNull { it.exists() }
+
+if (cryptoPath != null) {
+    includeBuild(cryptoPath)
+}
