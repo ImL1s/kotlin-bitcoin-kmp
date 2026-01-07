@@ -13,6 +13,10 @@ on:
       - './github/**'
       - '!./github/workflow/snapshot.yml'
 
+defaults:
+  run:
+    working-directory: main
+
 jobs:
 
   upload:
@@ -25,12 +29,13 @@ jobs:
       - name: Check out
         uses: actions/checkout@v4
         with:
+          path: main
           submodules: 'recursive'
       - name: Check out secp256k1-kmp
         uses: actions/checkout@v4
         with:
           repository: ImL1s/kotlin-secp256k1-kmp
-          path: ../kotlin-secp256k1-kmp
+          path: kotlin-secp256k1-kmp
       - name: Cached Konan
         uses: actions/cache@v4
         with:
