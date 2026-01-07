@@ -1,6 +1,7 @@
-name: publish snapshot
+name: Publish snapshot
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'master'
