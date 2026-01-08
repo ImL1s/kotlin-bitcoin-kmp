@@ -64,6 +64,7 @@ jobs:
       - name: Publish secp256k1-kmp to Maven Local
         run: |
           cd kotlin-secp256k1-kmp
+          echo "skip.android=true" > local.properties
           chmod +x gradlew
           ./gradlew publishToMavenLocal
       - name: Check
