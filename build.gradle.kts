@@ -109,43 +109,80 @@ kotlin {
         val nativeMain by creating {
             dependsOn(commonMain)
         }
+        val nativeTest by creating {
+            dependsOn(commonTest)
+        }
 
         val linuxMain by creating {
             dependsOn(nativeMain)
         }
+        val linuxTest by creating {
+            dependsOn(nativeTest)
+        }
         val linuxX64Main by getting { dependsOn(linuxMain) }
+        val linuxX64Test by getting { dependsOn(linuxTest) }
         val linuxArm64Main by getting { dependsOn(linuxMain) }
+        val linuxArm64Test by getting { dependsOn(linuxTest) }
 
         val macosMain by creating {
             dependsOn(nativeMain)
         }
+        val macosTest by creating {
+            dependsOn(nativeTest)
+        }
         val macosX64Main by getting { dependsOn(macosMain) }
+        val macosX64Test by getting { dependsOn(macosTest) }
         val macosArm64Main by getting { dependsOn(macosMain) }
+        val macosArm64Test by getting { dependsOn(macosTest) }
 
         val iosMain by creating {
             dependsOn(nativeMain)
         }
+        val iosTest by creating {
+            dependsOn(nativeTest)
+        }
         val iosArm64Main by getting {
             dependsOn(iosMain)
+        }
+        val iosArm64Test by getting {
+            dependsOn(iosTest)
         }
         val iosX64Main by getting {
             dependsOn(iosMain)
         }
+        val iosX64Test by getting {
+            dependsOn(iosTest)
+        }
         val iosSimulatorArm64Main by getting {
             dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
         }
         
         val watchosMain by creating {
             dependsOn(nativeMain)
         }
+        val watchosTest by creating {
+            dependsOn(nativeTest)
+        }
         val watchosArm64Main by getting {
             dependsOn(watchosMain)
+        }
+        val watchosArm64Test by getting {
+            dependsOn(watchosTest)
         }
         val watchosSimulatorArm64Main by getting {
             dependsOn(watchosMain)
         }
+        val watchosSimulatorArm64Test by getting {
+            dependsOn(watchosTest)
+        }
         val watchosX64Main by getting {
             dependsOn(watchosMain)
+        }
+        val watchosX64Test by getting {
+            dependsOn(watchosTest)
         }
 
         all {
