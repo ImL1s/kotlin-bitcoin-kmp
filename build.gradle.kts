@@ -76,7 +76,8 @@ kotlin {
     }
 
     sourceSets {
-        val secp256k1KmpVersion = "0.22.0"
+        val secp256k1KmpVersion = "0.23.0-SNAPSHOT"
+        val cryptoKmpVersion = "1.3.1-SNAPSHOT"
 
         val commonMain by getting {
             dependencies {
@@ -87,7 +88,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation("org.jetbrains.kotlinx:kotlinx-io-core:0.8.0")
+                implementation(libs.kotlinx.io.core)
                 api(libs.kotlinx.serialization.json)
             }
         }
