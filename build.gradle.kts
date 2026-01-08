@@ -18,7 +18,6 @@ version = "0.30.0-SNAPSHOT"
 repositories {
     google()
     mavenCentral()
-    mavenLocal()
 }
 
 // Robust Task Suppression to prevent CI failures
