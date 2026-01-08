@@ -51,7 +51,7 @@ jobs:
           cd $GITHUB_WORKSPACE/kotlin-secp256k1-kmp
           echo "skip.android=true" > local.properties
           chmod +x gradlew
-          ./gradlew publishToMavenLocal
+          ./gradlew publishLinuxArm64PublicationToMavenLocal publishLinuxX64PublicationToMavenLocal :jni:jvm:linux:publishJvmPublicationToMavenLocal
       - name: Check
         run: ./gradlew check --stacktrace --debug
       - name: Publish Linux to Maven Local
