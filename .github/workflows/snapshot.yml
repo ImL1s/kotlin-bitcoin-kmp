@@ -53,7 +53,7 @@ jobs:
           chmod +x gradlew
           ./gradlew publishToMavenLocal
           echo "Listing Maven Local:"
-          find ~/.m2/repository -name "secp256k1*"inuxArm64PublicationToMavenLocal publishLinuxX64PublicationToMavenLocal :jni:jvm:linux:publishJvmPublicationToMavenLocal
+          find ~/.m2/repository -name "secp256k1*"
       - name: Check
         run: ./gradlew check --stacktrace --debug
       - name: Publish Linux to Maven Local
