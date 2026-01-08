@@ -61,8 +61,13 @@ jobs:
         with:
           java-version: 21
           distribution: 'adopt'
+      - name: Publish secp256k1-kmp to Maven Local
+        run: |
+          cd kotlin-secp256k1-kmp
+          chmod +x gradlew
+          ./gradlew publishToMavenLocal
       - name: Check
-        run: ./gradlew check --stacktrace --debug --include-build ../kotlin-secp256k1-kmp --include-build ../kotlin-crypto-pure
+        run: ./gradlew check --stacktrace --debug
       - name: Publish Linux to Maven Local
         if: matrix.os == 'ubuntu-latest'
         shell: bash
