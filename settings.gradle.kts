@@ -24,7 +24,13 @@ val secpPath = listOf("../kotlin-secp256k1-kmp", "./kotlin-secp256k1-kmp")
     .firstOrNull { it.exists() }
 
 if (secpPath != null) {
-    includeBuild(secpPath)
+    includeBuild(secpPath) {
+        dependencySubstitution {
+            substitute(module("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm-linux")).using(project(":jni:jvm:linux"))
+            substitute(module("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm-darwin")).using(project(":jni:jvm:darwin"))
+            substitute(module("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm-mingw")).using(project(":jni:jvm:mingw"))
+        }
+    }
 }
 
 val cryptoPath = listOf("../kotlin-crypto-pure", "./kotlin-crypto-pure")
