@@ -61,7 +61,10 @@ jobs:
       - name: Publish MacOS to Maven Local
         if: matrix.os == 'macOS-latest'
         shell: bash
-        run: ./gradlew publishToMavenLocal
+        run: |
+          ./gradlew publishToMavenLocal
+          echo "Listing Maven Local:"
+          find ~/.m2/repository -name "secp256k1*"
       - name: Copy artifact files
         run: |
           mkdir -p maven-local/snapshot
