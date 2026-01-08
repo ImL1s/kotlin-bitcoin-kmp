@@ -12,6 +12,9 @@ pluginManagement {
             if (requested.id.id.startsWith("org.jetbrains.kotlin")) {
                 useVersion("2.1.0")
             }
+            if (requested.id.id == "com.android.library" || requested.id.id == "com.android.application") {
+                useModule("com.android.tools.build:gradle:8.5.2")
+            }
         }
     }
 }
