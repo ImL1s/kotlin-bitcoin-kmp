@@ -45,6 +45,11 @@ jobs:
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-v2-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle-v2-
+      - name: Setup secp
+        run: |
+          echo "Workspace: $GITHUB_WORKSPACE"
+          cd $GITHUB_WORKSPACE/kotlin-secp256k1-kmp
+          echo "skip.android=true" > local.properties
       - name: Check
         run: ./gradlew check --stacktrace --debug
       - name: Publish Linux to Maven Local
