@@ -39,12 +39,12 @@ jobs:
           submodules: recursive
       - name: Publish secp256k1-kmp to Maven Local
         run: |
-          pwd
-          ls -F ..
-          cd ../kotlin-secp256k1-kmp
+          echo "Workspace: $GITHUB_WORKSPACE"
+          ls -F $GITHUB_WORKSPACE
+          cd $GITHUB_WORKSPACE/kotlin-secp256k1-kmp
           echo "skip.android=true" > local.properties
           chmod +x gradlew
-          ./gradlew publishToMavenLocal --info --stacktrace
+          ./gradlew publishToMavenLocal
       - name: Check
         run: ./gradlew check --stacktrace --debug
       - name: Publish Linux to Maven Local
