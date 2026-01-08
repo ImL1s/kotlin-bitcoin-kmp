@@ -45,16 +45,13 @@ jobs:
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-v2-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle-v2-
-      - name: Debug secp environment
+      - name: Publish secp256k1-kmp to Maven Local
         run: |
           echo "Workspace: $GITHUB_WORKSPACE"
-          ls -F $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE/kotlin-secp256k1-kmp
-          ls -la
           echo "skip.android=true" > local.properties
-          cat local.properties
           chmod +x gradlew
-          ./gradlew --version
+          ./gradlew publishToMavenLocal
       - name: Check
         run: ./gradlew check --stacktrace --debug
       - name: Publish Linux to Maven Local
