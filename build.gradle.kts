@@ -101,7 +101,7 @@ kotlin {
                     currentOs.isWindows -> "mingw"
                     else -> error("Unsupported OS $currentOs")
                 }
-                // implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm-$target:$secp256k1KmpVersion")
+                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm-$target:$secp256k1KmpVersion")
             }
         }
 
